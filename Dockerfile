@@ -1,15 +1,12 @@
 FROM ubuntu:latest
 # Isntall Firefox
 RUN apt-get update
-RUN apt-get install firefox curl -y
+RUN apt-get install --no-install-recommends -y firefox wget gzip tar zip openssl
 
 # Install the latest version of Geckodriver:
-RUN BASE_URL=https://github.com/mozilla/geckodriver/releases/download \
-  && VERSION=$(curl -sL \
-    https://api.github.com/repos/mozilla/geckodriver/releases/latest | \
-    grep tag_name | cut -d '"' -f 4) \
-  && curl -sL "$BASE_URL/$VERSION/geckodriver-$VERSION-linux64.tar.gz" | \
-tar -xz -C /usr/bin/
+RUN wget "https://github.com/mozilla/geckodriver/releases/download/v0.24.0/geckodriver-v0.24.0-linux64.tar.gz" --no-check-certificate
+RUN tar -xvf geckodriver-v0.24.0-linux64.tar.gz
+RUN mv geckodriver /usr/bin/
 
 
 ENTRYPOINT ["geckodriver"]
