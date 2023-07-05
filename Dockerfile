@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:22.10
 # Isntall Firefox
 RUN apt-get update
 RUN apt-get install --no-install-recommends -y firefox wget gzip tar zip openssl
